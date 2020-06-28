@@ -399,6 +399,10 @@ module.exports = function (
   }
   console.log();
   console.log('Happy hacking!');
+
+  console.log('(^ . ^)');
+  console.log('Powered By MinimalistYing!');
+  console.log('Powered By 小影子!');
 };
 
 function isReactInstalled(appPackage) {

@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy, Suspense } from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom'
+import { Header, Menu } from '@/components'
+import { Spin, message } from 'antd'
 
-function App() {
+/* 项目全局样式 */
+import './App.less'
+
+// 消息框最多显示一条
+message.config({ maxCount: 1 })
+
+/* 需要 Code-Spliting 的页面 */
+const Home = lazy(() => import('@/routes/Home')) // 首页
+
+/* 页面的基本框架 页头 + 侧边菜单 */
+function Page ({ children }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Header />
+      <Menu />
+      <main>
+        {children}
+      </main>
+    </>
+  )
 }
 
-export default App;
+// 在组件未按需加载完成时的 Loading
+const Loading = () => <div className='app-global-loading'><Spin /></div>
+
+export default function App (props) {
+  return (
+    <Router>
+      <Switch>
+        <Page>
+          <Suspense fallback={<Loading />}>
+            <Route path='/' exact component={Home} />
+            <Route path='/home' exact component={Home} />
+          </Suspense>
+        </Page>
+      </Switch>
+    </Router>
+  )
+}

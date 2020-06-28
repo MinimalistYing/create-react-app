@@ -1,3 +1,21 @@
+## 说明
+安装成功后需要做的几件事
+* 修改 `cicd.yaml`，将其中的域名换成你需要的域名
+* 修改 `CONSTANDS.js`，将其中的 `IS_ALPHA` 判断改正确
+* 修改 `src/services/index.js`，根据你的需要配置正确的后端请求地址
+
+### `npm start`
+开始开发
+
+### `npm run lint`
+`standard` 格式检查
+
+### `npm run fix`
+`standard` 自动修复
+
+
+*** 以下是 Creat-React-App 自动生成的文档 ***
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -63,8 +63,8 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 // style files regexes
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
-const sassRegex = /\.(scss|sass)$/;
-const sassModuleRegex = /\.module\.(scss|sass)$/;
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -323,6 +323,7 @@ module.exports = function (webpackEnv) {
           'scheduler/tracing': 'scheduler/tracing-profiling',
         }),
         ...(modules.webpackAliases || {}),
+        '@': path.resolve('./src')
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
@@ -357,21 +358,9 @@ module.exports = function (webpackEnv) {
           use: [
             {
               options: {
-                cache: true,
-                formatter: require.resolve('react-dev-utils/eslintFormatter'),
-                eslintPath: require.resolve('eslint'),
-                resolvePluginsRelativeTo: __dirname,
-                // @remove-on-eject-begin
-                ignore: isExtendingEslintConfig,
-                baseConfig: isExtendingEslintConfig
-                  ? undefined
-                  : {
-                      extends: [require.resolve('eslint-config-react-app')],
-                    },
-                useEslintrc: isExtendingEslintConfig,
-                // @remove-on-eject-end
+                parser: 'babel-eslint'
               },
-              loader: require.resolve('eslint-loader'),
+              loader: require.resolve('standard-loader'),
             },
           ],
           include: paths.appSrc,
@@ -527,8 +516,7 @@ module.exports = function (webpackEnv) {
             // By default we support SASS Modules with the
             // extensions .module.scss or .module.sass
             {
-              test: sassRegex,
-              exclude: sassModuleRegex,
+              test: lessRegex,
               use: getStyleLoaders(
                 {
                   importLoaders: 3,
@@ -536,7 +524,7 @@ module.exports = function (webpackEnv) {
                     ? shouldUseSourceMap
                     : isEnvDevelopment,
                 },
-                'sass-loader'
+                'less-loader'
               ),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
@@ -547,7 +535,7 @@ module.exports = function (webpackEnv) {
             // Adds support for CSS Modules, but using SASS
             // using the extension .module.scss or .module.sass
             {
-              test: sassModuleRegex,
+              test: lessModuleRegex,
               use: getStyleLoaders(
                 {
                   importLoaders: 3,
@@ -558,7 +546,7 @@ module.exports = function (webpackEnv) {
                     getLocalIdent: getCSSModuleLocalIdent,
                   },
                 },
-                'sass-loader'
+                'less-loader'
               ),
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.

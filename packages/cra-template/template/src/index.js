@@ -1,23 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import zhCN from 'antd/es/locale/zh_CN' // 由于 antd 组件的默认文案是英文，所以需要修改为中文
+import { ConfigProvider } from 'antd'
+import App from './App'
+import configRequest from './services/index.js'
+
+/* 外部样式依赖 */
+import 'bape/style.css'
+import 'antd/dist/antd.css'
+
+// 初始化请求的相关设置
+configRequest()
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ConfigProvider locale={zhCN}>
+      <App />
+    </ConfigProvider>
   </React.StrictMode>,
   document.getElementById('root')
-);
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://cra.link/PWA
-serviceWorker.unregister();
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+)

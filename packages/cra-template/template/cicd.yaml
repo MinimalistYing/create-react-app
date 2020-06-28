@@ -1,0 +1,14 @@
+deploy:
+  meta:
+    name: ec-modi
+    owner: ying
+  deployment:
+    port: 
+      - 80
+  ingress:
+    domainnames:
+      - namespace: dev
+        value: alpha-xxx.aidigger.com
+      - namespace: production
+        value: xxx.aidigger.com
+    path: /

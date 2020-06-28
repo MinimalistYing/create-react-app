@@ -1,10 +1,32 @@
 {
   "package": {
     "dependencies": {
-      "@testing-library/jest-dom": "^5.9.0",
-      "@testing-library/react": "^10.2.1",
-      "@testing-library/user-event": "^12.0.2",
-      "web-vitals": "^0.2.2"
+      "react-router-dom": "^5.2.0",
+      "the-fetch": "^1.6.0",
+      "antd": "^4.3.0",
+      "bape": "^1.3.0",
+      "prop-types": "^15.7.2",
+      "query-string": "^6.12.1",
+      "husky": "^4.2.5",
+      "less": "^3.11.2"
+    },
+    "devDependencies": {
+      "standard": "^14.3.4",
+      "less-loader": "^6.1.0",
+      "standard-loader": "^7.0.0",
+      "babel-eslint": "^10.1.0"
+    },
+    "scripts": {
+      "lint": "standard",
+      "fix": "standard --fix"
+    },
+    "standard": {
+      "parser": "babel-eslint"
+    },
+    "husky": {
+      "hooks": {
+        "pre-commit": "npm run lint"
+      }
     }
   }
 }
